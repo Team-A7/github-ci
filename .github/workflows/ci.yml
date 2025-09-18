@@ -140,7 +140,7 @@ jobs:
       - name: Checkout (platform)
         uses: actions/checkout@v3
         with:
-          repository: jalantechnologies/github-ci
+          repository: Team-A7/github-ci
           path: platform
           ref: ${{ steps.ci_workflow.outputs.version }}
 
@@ -186,7 +186,7 @@ jobs:
       - name: Checkout (platform)
         uses: actions/checkout@v3
         with:
-          repository: jalantechnologies/github-ci
+          repository: Team-A7/github-ci
           path: platform
           ref: ${{ steps.ci_workflow.outputs.version }}
 
@@ -234,7 +234,7 @@ jobs:
       - name: Checkout (platform)
         uses: actions/checkout@v3
         with:
-          repository: jalantechnologies/github-ci
+          repository: Team-A7/github-ci
           path: platform
           ref: ${{ needs.build.outputs.workflow_ci_version }}
 
@@ -253,7 +253,7 @@ jobs:
           docker_password: ${{ secrets.docker_password }}
 
   deploy:
-    needs: build
+    needs: [build,checks]
     runs-on: ubuntu-latest
     outputs:
       url: ${{ steps.deploy.outputs.url }}
@@ -267,7 +267,7 @@ jobs:
       - name: Checkout (platform)
         uses: actions/checkout@v3
         with:
-          repository: jalantechnologies/github-ci
+          repository: Team-A7/github-ci
           path: platform
           ref: ${{ needs.build.outputs.workflow_ci_version }}
 
