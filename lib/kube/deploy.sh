@@ -33,6 +33,9 @@ else
   kube_post_deploy_script="$kube_post_deploy_script_default"
 fi
 
+echo "deploy :: pre deploy script - $kube_pre_deploy_script"
+echo "deploy :: post deploy script - $kube_post_deploy_script"
+
 # kubernetes labels
 # we convert invalid label values to 'NA'
 # this breaks input on IFS
