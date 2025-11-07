@@ -62,3 +62,7 @@ Breaking changes:
 ## v2.5
 
 - (bug) DEPLOY_ID is not working as expected
+
+## v3.1
+
+- (feat) add support for environment-specific pre-deploy and post-deploy scripts

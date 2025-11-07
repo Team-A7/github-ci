@@ -6,7 +6,6 @@
 # optional - DOPPLER_TOKEN, DOPPLER_TOKEN_SECRET_NAME, DOPPLER_MANAGED_SECRET_NAME, KUBE_LABELS
 
 # custom vars
-
 echo "deploy :: starting deployment procedure"
 echo "deploy :: kube root - $KUBE_ROOT"
 echo "deploy :: kube namespace - $KUBE_NS"
@@ -16,13 +15,32 @@ echo "deploy :: kube deployment image - $KUBE_DEPLOYMENT_IMAGE"
 echo "deploy :: kube ingress hostname - $KUBE_INGRESS_HOSTNAME"
 echo "deploy :: kube deploy id - $KUBE_DEPLOY_ID"
 
-kube_pre_deploy_script="$KUBE_ROOT/scripts/pre-deploy.sh"
-kube_post_deploy_script="$KUBE_ROOT/scripts/post-deploy.sh"
-kube_parsed_labels=""
+# pre/post deploy hooks
+kube_pre_deploy_script_default="$KUBE_ROOT/scripts/pre-deploy.sh"
+kube_post_deploy_script_default="$KUBE_ROOT/scripts/post-deploy.sh"
+kube_pre_deploy_script_env="$KUBE_ROOT/scripts/${KUBE_ENV}/pre-deploy.sh"
+kube_post_deploy_script_env="$KUBE_ROOT/scripts/${KUBE_ENV}/post-deploy.sh"
+
+if [ -f "$kube_pre_deploy_script_env" ]; then
+  kube_pre_deploy_script="$kube_pre_deploy_script_env"
+else
+  kube_pre_deploy_script="$kube_pre_deploy_script_default"
+fi
+
+if [ -f "$kube_post_deploy_script_env" ]; then
+  kube_post_deploy_script="$kube_post_deploy_script_env"
+else
+  kube_post_deploy_script="$kube_post_deploy_script_default"
+fi
+
+echo "deploy :: pre deploy script - $kube_pre_deploy_script"
+echo "deploy :: post deploy script - $kube_post_deploy_script"
 
 # kubernetes labels
 # we convert invalid label values to 'NA'
 # this breaks input on IFS
+kube_parsed_labels=""
+
 for label in $KUBE_LABELS
 do
     lKey=${label%=*}
