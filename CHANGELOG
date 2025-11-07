@@ -66,3 +66,7 @@ Breaking changes:
 ## v3.1
 
 - (feat) add support for environment-specific pre-deploy and post-deploy scripts
+
+## v3.2
+
+- (fix) update all hardcoded `jalantechnologies` references to `Team-A7`
