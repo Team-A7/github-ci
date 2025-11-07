@@ -137,7 +137,7 @@ jobs:
       - name: Checkout (platform)
         uses: actions/checkout@v3
         with:
-          repository: Team-A7/github-ci
+          repository: jalantechnologies/github-ci
           path: platform
           ref: ${{ steps.ci_workflow.outputs.version }}
 
@@ -183,7 +183,7 @@ jobs:
       - name: Checkout (platform)
         uses: actions/checkout@v3
         with:
-          repository: Team-A7/github-ci
+          repository: jalantechnologies/github-ci
           path: platform
           ref: ${{ steps.ci_workflow.outputs.version }}
 
@@ -231,7 +231,7 @@ jobs:
       - name: Checkout (platform)
         uses: actions/checkout@v3
         with:
-          repository: Team-A7/github-ci
+          repository: jalantechnologies/github-ci
           path: platform
           ref: ${{ needs.build.outputs.workflow_ci_version }}
 
@@ -263,7 +263,7 @@ jobs:
       - name: Checkout (platform)
         uses: actions/checkout@v3
         with:
-          repository: Team-A7/github-ci
+          repository: jalantechnologies/github-ci
           path: platform
           ref: ${{ needs.build.outputs.workflow_ci_version }}
 
