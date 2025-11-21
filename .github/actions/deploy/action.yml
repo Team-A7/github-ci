@@ -26,6 +26,9 @@ inputs:
   branch:
     required: true
     description: 'Branch from which this action was run'
+  branch_sha:
+    required: false
+    description: 'Commit SHA of the branch head used to trigger this deployment'
   deploy_id:
     required: false
     description: 'Unique identifier which can also be used for giving priority to resources created during deployment process'
@@ -81,6 +84,31 @@ runs:
         echo "##[set-output name=branch_hash;]$(echo $BRANCH_HASH)"
         echo "##[set-output name=branch_commit_hash;]$(echo $GITHUB_SHA)"
         echo "##[set-output name=branch_actor;]$(echo $GITHUB_ACTOR)"
+
+    - name: Ensure deploy is latest on branch
+      shell: bash
+      run: |
+        cd "${GITHUB_WORKSPACE}/app"
+
+        BRANCH="${{ steps.extract_branch.outputs.branch }}"
+
+        echo "Ensuring deployment is from latest commit on branch '$BRANCH'"
+
+        git fetch origin "$BRANCH" --quiet
+        LATEST_SHA=$(git rev-parse "origin/$BRANCH")
+
+        EFFECTIVE_SHA="${{ inputs.branch_sha }}"
+        if [ -z "$EFFECTIVE_SHA" ]; then
+          EFFECTIVE_SHA="$GITHUB_SHA"
+        fi
+
+        echo "Latest $BRANCH commit on origin: $LATEST_SHA"
+        echo "Expected branch SHA: $EFFECTIVE_SHA"
+
+        if [ "$LATEST_SHA" != "$EFFECTIVE_SHA" ]; then
+          echo "Refusing deploy: workflow is not running on the latest commit on '$BRANCH'."
+          exit 1
+        fi
 
     - name: DigitalOcean setup
       env:
