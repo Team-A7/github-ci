@@ -70,3 +70,7 @@ Breaking changes:
 ## v3.2
 
 - (fix) update all hardcoded `jalantechnologies` references to `Team-A7`
+
+## v3.4
+
+- (feat) ensure deploy commit is latest on branch
