@@ -185,5 +185,5 @@ runs:
         hide_classify: "OUTDATED"
         number: ${{ inputs.pull_request_number }}
         message: |
-          Web app deployment: ${{ steps.deploy.outputs.url }}
+          Web App deployment: ${{ steps.deploy.outputs.url }}
           Temporal Cloud namespace: https://cloud.temporal.io/namespaces/${{ env.TEMPORAL_PREVIEW_NAMESPACE }}/workflows
