@@ -185,4 +185,5 @@ runs:
         hide_classify: "OUTDATED"
         number: ${{ inputs.pull_request_number }}
         message: |
-          Deployment (${{ inputs.app_name }}) is available at - ${{ steps.deploy.outputs.url }}
+          **Web app deployment:** ${{ steps.deploy.outputs.url }}
+          **Temporal Cloud namespace:** `${{ env.TEMPORAL_PREVIEW_NAMESPACE }}`
