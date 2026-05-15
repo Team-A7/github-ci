@@ -186,4 +186,4 @@ runs:
         number: ${{ inputs.pull_request_number }}
         message: |
           Web app deployment: ${{ steps.deploy.outputs.url }}
-          Temporal Cloud namespace: `${{ env.TEMPORAL_PREVIEW_NAMESPACE }}`
+          Temporal Cloud namespace: https://cloud.temporal.io/namespaces/${{ env.TEMPORAL_PREVIEW_NAMESPACE }}/workflows
